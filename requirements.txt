@@ -1,0 +1,3 @@
+robotframework >= 2.9
+elasticsearch >= 6.2.0
+elasticsearch-dsl >= 6.1.0
