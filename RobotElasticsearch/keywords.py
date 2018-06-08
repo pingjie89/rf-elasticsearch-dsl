@@ -5,25 +5,23 @@ from robot.api import logger
 from robot.api.deco import keyword
 
 class Keywords(object):
-    def __init__(self):
-        self.search_setting = {
-            'index' : None,
-            'doc_type' : 'doc',
-            'body' : {}
-        }
 ### Base keywords
     @keyword
     def setup_es_connection(self, hosts=None, port=9200, http_auth=None, 
         use_ssl=False, verify_certs=True, ca_certs=None, client_cert=None,
         client_key=None, headers=None):
+        '''Keyword wrapper on top elasticsearch-py constructor
+        '''
             self.es = Elasticsearch(hosts, port=port, http_auth=http_auth, 
                                     use_ssl=use_ssl, verify_certs=verify_certs, 
                                     ca_certs=ca_certs, client_cert=client_cert,
                                     client_key=client_key, headers=headers)
 
     @keyword
-    def query_elastic_classic(self):
-        self.es.search(self.search_setting['index'],doc_type=self.search_setting['doc_type'],)
+    def simple_query(self):
+        '''Simple query based on doc_type and body without advanced setting
+        '''
+        self.es.search(self.search_setting['index'],doc_type=self.search_setting['doc_type'],self.search_setting['body'])
 
     @keyword
     def query_elastic(self):
