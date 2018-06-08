@@ -1,19 +1,32 @@
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import connections, Search
 
-class Keywords(object):
+from robot.api import logger
+from robot.api.deco import keyword
 
+class Keywords(object):
+    def __init__(self):
+        self.search_setting = {
+            'index' : None,
+            'doc_type' : 'doc',
+            'body' : {}
+        }
 ### Base keywords
     @keyword
-    def setup_connection(self, host):
-        
+    def setup_es_connection(self, hosts=None, port=9200, http_auth=None, 
+        use_ssl=False, verify_certs=True, ca_certs=None, client_cert=None,
+        client_key=None, headers=None):
+            self.es = Elasticsearch(hosts, port=port, http_auth=http_auth, 
+                                    use_ssl=use_ssl, verify_certs=verify_certs, 
+                                    ca_certs=ca_certs, client_cert=client_cert,
+                                    client_key=client_key, headers=headers)
+
+    @keyword
+    def query_elastic_classic(self):
+        self.es.search(self.search_setting['index'],doc_type=self.search_setting['doc_type'],)
 
     @keyword
     def query_elastic(self):
-        pass
-
-    @keyword
-    def get_body(self):
         pass
 
     @keyword
@@ -21,9 +34,20 @@ class Keywords(object):
         pass
 ###
 
+### Search setting keywords
+    @keyword 
+    def set_doc_type(self, type='doc'):
+        self.search_setting['doc_type'] = type
+    
+    @keyword
+    def get_body_from_file(self,filepath):
+        with open(filepath, 'r') as file:
+            self.search_setting['body'] = file.read()
+###
+
 ### Search body built keywords
     @keyword
-    def something:
+    def something():
         pass
 
     @keyword
