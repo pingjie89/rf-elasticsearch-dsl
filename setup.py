@@ -39,6 +39,5 @@ setup(
     keywords         = 'robotframework test library elasticsearch elasticsearch_dsl',
     classifiers      = CLASSIFIERS,
     install_requires = REQUIREMENTS,
-    package_dir      = {'': 'RobotElasticsearch'},
-    packages         = find_packages('RobotElasticsearch')
+    packages         = ['RobotElasticsearch']
 )
