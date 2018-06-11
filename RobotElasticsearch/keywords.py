@@ -46,7 +46,6 @@ class Keywords(object):
     @keyword 
     def set_index(self, index):
         self.search_setting['index'] = index
-        sort_hits_by(a)
         
     @keyword 
     def set_doc_type(self, type='doc'):
