@@ -33,7 +33,12 @@ class Keywords(object):
     def query_elastic(self):
         pass
         
-
+    @keyword
+    def get_document_by_id(self,id=None):
+        '''Get specific document by document id
+        '''
+        self.search = self.es.search(self.search_setting['index'],doc_type=self.search_setting['doc_type'],q="_id="+id)
+        return self.search['hits']['hits']
 ###
 
 ### Hits processing keywords
